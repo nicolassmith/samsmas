@@ -11,8 +11,7 @@ Error_Message(Error)
 output = reshape(array(1:numchans*returnSamples),numchans,[]).'; 
 
 if any(any(output>5))
-    disp('saturating')
-    disp('...')
+    disp(['saturating' datestr(rem(now,1))])
 end
 
 end
