@@ -16,11 +16,23 @@ end
 numchans = length(channels);
 plotsamples = floor(samplerate*refreshtime);
 
+
+
+for j = 1:numchans
+    leg{j} = ['chan AIN' num2str(channels(j))]; %#ok<AGROW>
+end
+
+fighandle = figure;
+plothandle = loglog(NaN(1,2),NaN(numchans,2));
+ylabel('V/\surdHz')
+xlabel('time (s)')
+%legend(leg);
+plotcallback(); %#ok<NOEFF>
+
 tic
 LJ_startStream(ljHandle)
 
-fighandle = figure;
-
+firsttime = 1;
 
 while toc<timeout
     output = zeros(0,numchans);
@@ -43,18 +55,25 @@ while toc<timeout
     
     for j = 1:numchans
         spec = asd(output(:,j),samplerate,samplerate/2^log2bins);
-        plots{j} = [spec.f,spec.x]; %#ok<AGROW>
-        leg{j} = ['chan AIN' num2str(channels(j))]; %#ok<AGROW>
+        
+        if ~ishandle(plothandle(j))
+            break
+        end
+        set(plothandle(j),'YData',spec.x);
+        set(plothandle(j),'XData',spec.f);
+        
+    end
+    
+    if firsttime
+            legend(leg);
+            firsttime = 0;
     end
     
     if ~ishandle(fighandle)
         break
     end
-    figure(fighandle)
-    SRSspec(plots{:})
-    ylabel('V/\surdHz')
-    legend(leg);
-    plotcallback(); %#ok<NOEFF>
+    axis tight
+    drawnow
 end
 
 

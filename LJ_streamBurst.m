@@ -10,4 +10,9 @@ Error_Message(Error)
 
 output = reshape(array(1:numchans*returnSamples),numchans,[]).'; 
 
+if any(any(output>5))
+    disp('saturating')
+    disp('...')
+end
+
 end

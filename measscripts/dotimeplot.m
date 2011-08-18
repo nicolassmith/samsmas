@@ -10,12 +10,12 @@ end
 % Variable list for configuration
 channels = [0,6];
 samplerate = 512; % Set scan rate
-refreshtime = 1; 
-buffer = 10*refreshtime;
+refreshtime = .7; 
+buffer = 10;
 resBits = 14; %bit resolution
 timeout = inf;
-log2bins = 8;
+length = 10;
 
 LJ_configureStream(ljHandle,channels,samplerate,buffer,resBits) %5V bipolar is hardcoded
 
-LJ_streamSpectrumPlot(ljHandle,channels,samplerate,refreshtime,log2bins,timeout)
+LJ_streamStripPlot(ljHandle,channels,samplerate,refreshtime,length,timeout)
