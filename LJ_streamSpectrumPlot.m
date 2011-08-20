@@ -23,7 +23,10 @@ for j = 1:numchans
 end
 
 fighandle = figure;
-plothandle = loglog(NaN(1,2),NaN(numchans,2));
+numpoints = 2^(log2bins-1)+1;
+f = linspace(0,samplerate/2,numpoints);
+
+plothandle = loglog(f,NaN(numchans,numpoints));
 ylabel('V/\surdHz')
 xlabel('time (s)')
 %legend(leg);

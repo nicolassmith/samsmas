@@ -1,21 +1,21 @@
 
 LJ_setup() % setup the labjack environment
 
-ljHandle = LJ_getU9USBHandle();
+ljHandle = LJ_getU6Handle();
 
 if(~ljHandle)
     error('Didn''t find labjack')
 end
 
 % Variable list for configuration
-channels = [0,6];
+channels = [0:6];
 samplerate = 512; % Set scan rate
-refreshtime = .7; 
+refreshtime = 1; 
 buffer = 10;
-resBits = 14; %bit resolution
+resBits = 5; %bit resolution
 timeout = inf;
-length = 10;
+timeLength = 10;
 
-LJ_configureStream(ljHandle,channels,samplerate,buffer,resBits) %5V bipolar is hardcoded
+LJ_configureStream(ljHandle,channels,samplerate,buffer,resBits) %10V bipolar is hardcoded
 
-LJ_streamStripPlot(ljHandle,channels,samplerate,refreshtime,length,timeout)
+LJ_streamStripPlot(ljHandle,channels,samplerate,refreshtime,timeLength,timeout)

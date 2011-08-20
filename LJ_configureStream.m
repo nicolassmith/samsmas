@@ -1,6 +1,6 @@
 function LJ_configureStream(ljHandle,channels,ScanRate,buffer,resBits)
 
-% 5V bipolar is hardcoded at the moment
+% 10V bipolar is hardcoded at the moment
 
 run LJ_getGlobals
 
@@ -26,8 +26,8 @@ Error = ljud_AddRequest(ljHandle,LJ_ioCLEAR_STREAM_CHANNELS,0,0,0,0);
 Error_Message(Error)
 
 for i = channels
-    % Configure with Bipolar ±5 volt range
-    Error = ljud_AddRequest(ljHandle,LJ_ioPUT_AIN_RANGE,i,LJ_rgBIP5V,0,0);
+    % Configure with Bipolar ±10 volt range
+    Error = ljud_AddRequest(ljHandle,LJ_ioPUT_AIN_RANGE,i,LJ_rgBIP10V,0,0);
     Error_Message(Error)
 
     % Define the scan list

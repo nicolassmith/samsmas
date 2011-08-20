@@ -1,61 +1,63 @@
 
 LJ_setup() % setup the labjack environment
 
-ljHandle = LJ_getU9EthernetHandle('18.161.1.101');
+ljHandle = LJ_getU6Handle();
+
+if(~ljHandle)
+    error('Didn''t find labjack')
+end
 
 % Variable list for configuration
-num_channels = 6;
-ScanRate = 512; % Set scan rate
-time = 0.5;
-buffer = 5; % 5 second buffer time
-resBits = 14; %bit resolution
+channels = [0:6];
+samplerate = 512; % Set scan rate
+buffer = 10;
+resBits = 5; %bit resolution
+runLength = 60;
 
-LJ_configureStream(ljHandle,0:num_channels-1,ScanRate,buffer,resBits) %5V bipolar is hardcoded
+totalsamples = runLength*samplerate;
 
-LJ_startStream(ljHandle)
+LJ_configureStream(ljHandle,channels,samplerate,buffer,resBits) %10V bipolar is hardcoded
 
-datas = zeros(0,num_channels);
-tic
-while toc<5
-   
-    samples = ScanRate * time; % fudge factor of 2
-    
-    %pause(time)
-     
-    output = LJ_streamBurst(ljHandle,samples,num_channels);
-    
-    datas = [ datas ; output ]; %#ok<AGROW>
-    
-end
+pause(5) % let the desk stop shaking!
 
+out = LJ_streamOut(ljHandle,totalsamples,length(channels));
 
-LJ_stopStream(ljHandle)
+% channel - signal
+% AIN0      MAG X
+% AIN1      MAG Y
+% AIN2      MAG Z
+% AIN3      GURALP NS
+% AIN4      GURALP EW
+% AIN5      GURALP UD
+% AIN6      ADC NOISE
 
+spec = @(d)asd(d,samplerate,samplerate/2^13);
 
-totalSamples = size(datas,1);
+mx = spec(out(:,1));
+my = spec(out(:,2));
+mz = spec(out(:,3));
+gn = spec(out(:,4));
+ge = spec(out(:,5));
+gu = spec(out(:,6));
+noise = spec(out(:,7));
 
+magcal = 0.1;% uT/V
+gurcal = 1/(26*400*2);% (m/s)/V
 
+figure
+subplot(2,1,1)
+loglog(mx.f,mx.x*magcal,'b',my.f,my.x*magcal,'r',mz.f,mz.x*magcal,'g',noise.f,noise.x*magcal,'k')
+axis tight
+legend('X','Y','Z','ADC noise')
+title('Magnetometer')
+xlabel('frequency (Hz)')
+ylabel('Magnetic Field (uT)')
 
-j = ((1:totalSamples)/ScanRate).';
-    
-% Display the data
-disp ('Total Number of data points per Channel:') 
-disp (totalSamples)
-
-
-for j = 1:num_channels
-    poo = asd(datas(:,j),ScanRate,ScanRate/2^10);
-    spec{j} = [poo.f,poo.x]; %#ok<AGROW>
-end
-
-SRSspec(spec{:})
-
-ylabel('V/\surdHz')
-%table = [j datas];
-
-
-
-
-%disp('  Time(sec)   AIN0      AIN1      AIN2      AIN3')
-%disp(table)
+subplot(2,1,2)
+loglog(gn.f,gn.x*gurcal,'b',ge.f,ge.x*gurcal,'r',gu.f,gu.x*gurcal,'g',noise.f,noise.x*gurcal,'k')
+axis tight
+legend('NS','EW','UD','ADC Noise')
+title('Guralp')
+xlabel('frequency (Hz)')
+ylabel('Ground Motion (m/s)')
 

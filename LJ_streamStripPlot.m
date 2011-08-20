@@ -7,7 +7,7 @@ if nargin<6 || isempty(timeout);
     timeout = inf;
 end
 if nargin<5 || isempty(plotlength);
-    log2bins = 10;
+    plotlength = 10;
 end
 if nargin<4 || isempty(refreshtime);
     refreshtime = 1;
@@ -17,7 +17,7 @@ end
 numchans = length(channels);
 plotsamples = floor(samplerate*refreshtime);
 
-plotpoints = 500; % what if they want a really low sample rate?
+plotpoints = 1000; % what if they want a really low sample rate?
 plotdata = NaN(plotpoints,numchans);
 timedata = linspace(-plotlength,0,plotpoints);
 
@@ -30,7 +30,7 @@ fighandle = figure;
 plothandle = plot(timedata,plotdata);
 ylabel('V')
 xlabel('time (s)')
-legend(leg);
+legend(leg,'Location','NW');
 plotcallback(); %#ok<NOEFF>
 
 tic
