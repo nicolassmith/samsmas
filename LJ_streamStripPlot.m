@@ -17,7 +17,7 @@ end
 numchans = length(channels);
 plotsamples = floor(samplerate*refreshtime);
 
-plotpoints = 1000; % what if they want a really low sample rate?
+plotpoints = samplerate*plotlength; % what if they want a really low sample rate?
 plotdata = NaN(plotpoints,numchans);
 timedata = linspace(-plotlength,0,plotpoints);
 
@@ -56,7 +56,7 @@ while toc<timeout
     
     
     for j = 1:numchans
-        decoutput = decimate(output(:,j),ceil(samplerate/plotpoints*plotlength));
+        decoutput = output(:,j);%decimate(output(:,j),ceil(samplerate/plotpoints*plotlength));
         plotdata(:,j) = [plotdata(length(decoutput)+1:end,j);decoutput];
         
         if ~ishandle(plothandle(j))
