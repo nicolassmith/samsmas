@@ -15,7 +15,7 @@ buffer = 10;
 resBits = 5; %bit resolution
 runLength = 5*60;
 
-filenameprefix = 'underpde';
+filenameprefix = 'lab1316c';
 
 totalsamples = runLength*samplerate;
 
