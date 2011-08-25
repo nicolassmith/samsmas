@@ -8,6 +8,9 @@ ljHandle = LJ_getU6Handle();
 if(~ljHandle)
     error('Didn''t find labjack')
 end
+
+m = 60; % minute
+h = 60*m; %hour
 %%%%% END SETUP BLOCK
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -20,8 +23,9 @@ buffer = 10; % labjack buffer (in seconds)
 resBits = 5; % set labjack resolution
 
 % Probably only need to change the following
-filenameprefix = 'timertest'; %filename prefix (careful, matlab doesn't like names that start with numbers)
-runLength = 60; % length of time to acquire (seconds)
+filenameprefix = 'lab1316c'; %filename prefix (careful, matlab doesn't like names that start with numbers)
+
+runLength = 2*h; % length of time to acquire (seconds)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%% END CONFIGURATION BLOCK %%%%%%
