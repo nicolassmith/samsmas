@@ -17,5 +17,6 @@ timeout = inf;
 timeLength = 10;
 
 LJ_configureStream(ljHandle,channels,samplerate,buffer,resBits) %10V bipolar is hardcoded
+legendCallback = @(x)legend('MAG X','MAG Y','MAG Z','GUR NS','GUR EW','GUR UD','grounded','Location','NW');
 
-LJ_streamStripPlot(ljHandle,channels,samplerate,refreshtime,timeLength,timeout)
+LJ_streamStripPlot(ljHandle,channels,samplerate,refreshtime,timeLength,timeout,legendCallback)
