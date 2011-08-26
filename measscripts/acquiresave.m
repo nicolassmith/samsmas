@@ -23,9 +23,9 @@ buffer = 10; % labjack buffer (in seconds)
 resBits = 5; % set labjack resolution
 
 % Probably only need to change the following
-filenameprefix = 'lab1316c'; %filename prefix (careful, matlab doesn't like names that start with numbers)
+filenameprefix = 'lab1316b'; %filename prefix (careful, matlab doesn't like names that start with numbers)
 
-runLength = 2*h; % length of time to acquire (seconds) m = 30, h = 3600
+runLength = 2*h; % length of time to acquire (seconds) m = 60, h = 3600
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%% END CONFIGURATION BLOCK %%%%%%
