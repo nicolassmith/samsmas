@@ -47,7 +47,7 @@ xlim([min(f) max(f)])
 xlabel('frequency (Hz)')
 grid on
 
-export_fig comparePdeLab1316c_applesMAG.pdf
+export_fig comparePdeLab1316c_applesMAG.pdf -painters
 
 % compare vertical guralp measurements
 gurUDpde = specpde(underpde.out(:,6));
@@ -74,7 +74,7 @@ xlim([min(f) max(f)])
 xlabel('frequency (Hz)')
 grid on
 
-export_fig comparePdeLab1316c_applesGUD.pdf
+export_fig comparePdeLab1316c_applesGUD.pdf -painters
 
 % compare horizontal guralp measurements
 gurNSpde = specpde(underpde.out(:,4));
@@ -101,4 +101,4 @@ xlim([min(f) max(f)])
 xlabel('frequency (Hz)')
 grid on
 
-export_fig comparePdeLab1316c_applesGNS.pdf
+export_fig comparePdeLab1316c_applesGNS.pdf -painters
