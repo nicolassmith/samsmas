@@ -33,7 +33,7 @@ for set = [nochange closepot infoam inbox nofans]
     f = thisspec.f;
     
     gurcal = 1/(26*400*2)./f;% m/V
-    plotspec(:,j) = thisspec.x.*gurcal; %#ok<AGROW>
+    plotspec(:,j) = thisspec.x.*gurcal; %#ok<SAGROW,AGROW>
     j = j + 1;
 end
 
@@ -47,5 +47,6 @@ axis tight
 xlim([min(f) max(f)])
 ylabel('Ground Motion (m/\surdHz)')
 legend('Original','Closed Pot Cover','In Foam Housing','In Box','Fans Off')
+grid on
 
-%export_fig comparePdeLab1316c_firstGUD.pdf
+export_fig compareLab1316c_acoustic.pdf -painters
