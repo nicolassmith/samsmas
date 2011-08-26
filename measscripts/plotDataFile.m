@@ -1,4 +1,4 @@
-function plotDataFile(filename)
+function handles = plotDataFile(filename)
     % plots data in filename, or prompts user for file.
     
     % channel - signal
@@ -33,7 +33,7 @@ function plotDataFile(filename)
     
     figure('Position',[1,1,600,800])
     subplot(2,1,1)
-    LJ_plotSpec(dataset.out,dataset.samplerate,log2bins,magcols,magcal);
+    handles = LJ_plotSpec(dataset.out,dataset.samplerate,log2bins,magcols,magcal);
     legend('X','Y','Z','ADC noise')
     title('Magnetometer')
     xlabel('frequency (Hz)')
@@ -43,7 +43,7 @@ function plotDataFile(filename)
     grid on
 
     subplot(2,1,2)
-    LJ_plotSpec(dataset.out,dataset.samplerate,log2bins,gurcols,gurcal);
+    handles = [handles;LJ_plotSpec(dataset.out,dataset.samplerate,log2bins,gurcols,gurcal)];
     axis tight
     legend('NS','EW','UD','ADC Noise')
     title('Guralp')

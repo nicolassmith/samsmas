@@ -1,4 +1,4 @@
-function LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibration,plotcommand)
+function handles = LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibration,plotcommand)
 
     if nargin<6
         plotcommand = @loglog;
@@ -17,6 +17,8 @@ function LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibration,plotcomm
         washold = 1;
     end
     
+    handles = [];
+    
     for jCol = columns
         thisspec = asd(streamdata(:,jCol),samplerate,samplerate/2^log2bins);
 
@@ -26,7 +28,7 @@ function LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibration,plotcomm
             plotcal = calibration(thisspec.f);
         end
         
-        plotcommand(thisspec.f,thisspec.x.*plotcal);
+        handles = [handles;plotcommand(thisspec.f,thisspec.x.*plotcal)]; %#ok<AGROW>
         hold all
     end
     
