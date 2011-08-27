@@ -41,4 +41,5 @@ disp(['begin data capture for ' filename])
 out = LJ_streamOut(ljHandle,totalsamples,length(channels));
 disp('saving data...')
 save(['data/' filename]);
+disp('done.')
 %%%%%% END DATA ACQUISITION BLOCK
