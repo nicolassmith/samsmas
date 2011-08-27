@@ -29,13 +29,13 @@ f = linspace(0,samplerate/2,numpoints);
 plothandle = loglog(f,NaN(numchans,numpoints));
 ylabel('V/\surdHz')
 xlabel('time (s)')
-%legend(leg);
+legend(leg);
 plotcallback(); %#ok<NOEFF>
 
 tic
 LJ_startStream(ljHandle)
 
-firsttime = 1;
+%firsttime = 1;
 
 while toc<timeout
     output = zeros(0,numchans);
@@ -67,10 +67,10 @@ while toc<timeout
         
     end
     
-    if firsttime
-            legend(leg);
-            firsttime = 0;
-    end
+    %if firsttime
+    %        legend(leg);
+    %        firsttime = 0;
+    %end
     
     if ~ishandle(fighandle)
         break
