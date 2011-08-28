@@ -8,21 +8,18 @@ while 1
     timervec = datevec(timers);
     
     nowvec = datevec(now);
-    % check for matching hour
-    match = find(timervec(:,4) == nowvec(4));
     
-    for j = 1:length(match)
-        % check if minute and second match also
-        if timervec(match(j),5)==nowvec(5) && timervec(match(j),6)==floor(nowvec(6))
-            % then run the acquire script
-            disp(['buzzzz! timer activated, time is ' datestr(now)])
-            
-            acquiresave
-            
-            pause(1)
-            break
-        end
+    % this checks that the current time (seconds truncated) matches one of
+    % the timers.
+    if any(all((timervec(:,4:6)==repmat(floor(nowvec(4:6)),size(timervec,1),1)).'))
+        % then run the acquire script
+        disp(['buzzzz! timer activated, time is ' datestr(now)])
+
+        acquiresave
+
+        pause(1)
     end
+
     
     pause(0.5);
 end
