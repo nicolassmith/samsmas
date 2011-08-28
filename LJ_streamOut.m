@@ -3,13 +3,18 @@ if nargin<4
     bursttime = 0.2;
 end
 
+maxScanRate = 50000;
+
+maxSamples = floor(maxScanRate/numchans*bursttime);
+
 LJ_startStream(ljHandle)
 
 output = zeros(0,numchans);
 samplesleft = samples;
 while samplesleft>0
     bursttic = tic;
-    [putout,err] = LJ_streamBurst(ljHandle,samplesleft,numchans);
+    grabsamples = min(samplesleft,maxSamples);
+    [putout,err] = LJ_streamBurst(ljHandle,grabsamples,numchans);
 %     if(err)
 %         warning('stream failed')
 %         break
