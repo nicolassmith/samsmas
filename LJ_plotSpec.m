@@ -1,4 +1,4 @@
-function handles = LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibration,plotcommand)
+function varargout = LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibration,plotcommand)
 
     if nargin<6
         plotcommand = @loglog;
@@ -36,4 +36,7 @@ function handles = LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibratio
         hold off
     end
 
+    if nargout
+        varargout{1} = handles;
+    end
 end

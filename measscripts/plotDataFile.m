@@ -1,4 +1,4 @@
-function handles = plotDataFile(filename)
+function varargout = plotDataFile(filename)
     % plots data in filename, or prompts user for file.
     
     % channel - signal
@@ -52,4 +52,8 @@ function handles = plotDataFile(filename)
     xlim([dataset.samplerate/2^log2bins dataset.samplerate/2])
     ylabel('Ground Motion (m/\surdHz)')
     grid on
+    
+    if nargout
+        varargout{1} = handles;
+    end
 end
