@@ -37,7 +37,7 @@ totalsamples = runLength*samplerate;
 filename = [filenameprefix '-' datestr(now,30)];
 
 LJ_configureStream(ljHandle,channels,samplerate,buffer,resBits) %10V bipolar is hardcoded
-disp(['begin data capture for ' filename])
+disp(['begin data capture for ' filename ' (' num2str(runLength) ' seconds)'])
 out = LJ_streamOut(ljHandle,totalsamples,length(channels));
 disp('saving data...')
 save(['data/' filename]);
