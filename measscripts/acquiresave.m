@@ -23,7 +23,7 @@ buffer = 10; % labjack buffer (in seconds)
 resBits = 5; % set labjack resolution
 
 % Probably only need to change the following
-filenameprefix = 'lab1316b'; % filename prefix (careful, matlab doesn't like names that start with numbers)
+filenameprefix = 'dlab'; % filename prefix (careful, matlab doesn't like names that start with numbers)
                              % full filename will include date and time.
 runLength = 2*h; % length of time to acquire (seconds) m = 60, h = 3600
 
