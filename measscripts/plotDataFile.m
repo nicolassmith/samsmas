@@ -10,7 +10,7 @@ function varargout = plotDataFile(filename)
     % AIN5      GURALP UD
     % AIN6      ADC NOISE
     
-    magcal = 0.1;% uT/V
+    magcal = 10;% uT/V
     gurcal = @(f)1/(26*400*2)./f;% m/V
     
     magcols = [1:3,7];
