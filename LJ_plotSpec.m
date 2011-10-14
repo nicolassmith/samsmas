@@ -18,6 +18,7 @@ function varargout = LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibrat
     end
     
     handles = [];
+    specs = [];
     
     for jCol = columns
         thisspec = asd(streamdata(:,jCol),samplerate,samplerate/2^log2bins);
@@ -28,6 +29,7 @@ function varargout = LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibrat
             plotcal = calibration(thisspec.f);
         end
         
+        specs = [specs;thisspec]; %#ok<AGROW>
         handles = [handles;plotcommand(thisspec.f,thisspec.x.*plotcal)]; %#ok<AGROW>
         hold all
     end
@@ -36,7 +38,10 @@ function varargout = LJ_plotSpec(streamdata,samplerate,log2bins,columns,calibrat
         hold off
     end
 
-    if nargout
+    if nargout>0
         varargout{1} = handles;
+    end
+    if nargout>1
+        varargout{2} = specs;
     end
 end
