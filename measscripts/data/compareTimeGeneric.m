@@ -22,11 +22,12 @@ useCol = 6;
 useFilename = 'seivert';
 
 figure('Position',[1,1,600,800])
+set(gcf,'Color','white')
 
 subplot(2,1,1)
 for iset = {lab02 lab08 lab12 lab16 pde}
-    set=iset{1};
-    LJ_plotSpec(set.out,set.samplerate,log2bins,useCol,useCal);
+    dataset=iset{1};
+    LJ_plotSpec(dataset.out,dataset.samplerate,log2bins,useCol,useCal);
     hold all
     
 end
@@ -41,7 +42,7 @@ fmax = max(cellfun(@max,get(findall(gcf,'type','line'),'xdata')));
 xlim([fmin fmax])
 ylabel(useYlabel)
 %legend('Original','Closed Pot Cover','In Foam Housing','In Box','Fans Off')
-legend('02AM','08AM','12PM','04PM','pde 7PM','ADC noise')
+legend('02AM','08AM','12PM','04PM','pde 7PM','ADC noise','Location','southwest')
 grid on
 
 % plot ratios
@@ -50,8 +51,8 @@ grid on
 refspec = asd(pde.out(:,useCol),pde.samplerate,pde.samplerate/2^log2bins);
 
 subplot(2,1,2)
-for set = [lab02 lab08 lab12 lab16]
-    LJ_plotSpec(set.out,set.samplerate,log2bins,useCol,1./refspec.x);
+for dataset = [lab02 lab08 lab12 lab16]
+    LJ_plotSpec(dataset.out,dataset.samplerate,log2bins,useCol,1./refspec.x);
     hold all
     
 end
@@ -59,7 +60,7 @@ hold off
 title('ratio')
 xlabel('frequency (Hz)')
 axis tight
-legend('02','08','12','16')
+legend('02','08','12','16','Location','northwest')
 grid on
 
 export_fig(['compareTimes' labtitle '-' useFilename '.pdf'],'-painters')
@@ -72,11 +73,12 @@ useCol = 5;
 useFilename = 'seihorz';
 
 figure('Position',[1,1,600,800])
+set(gcf,'Color','white')
 
 subplot(2,1,1)
 for iset = {lab02 lab08 lab12 lab16 pde}
-    set=iset{1};
-    LJ_plotSpec(set.out,set.samplerate,log2bins,useCol,useCal);
+    dataset=iset{1};
+    LJ_plotSpec(dataset.out,dataset.samplerate,log2bins,useCol,useCal);
     hold all
     
 end
@@ -91,7 +93,7 @@ fmax = max(cellfun(@max,get(findall(gcf,'type','line'),'xdata')));
 xlim([fmin fmax])
 ylabel(useYlabel)
 %legend('Original','Closed Pot Cover','In Foam Housing','In Box','Fans Off')
-legend('02AM','08AM','12PM','04PM','pde 7PM','ADC noise')
+legend('02AM','08AM','12PM','04PM','pde 7PM','ADC noise','Location','southwest')
 grid on
 
 % plot ratios
@@ -100,8 +102,8 @@ grid on
 refspec = asd(pde.out(:,useCol),pde.samplerate,pde.samplerate/2^log2bins);
 
 subplot(2,1,2)
-for set = [lab02 lab08 lab12 lab16]
-    LJ_plotSpec(set.out,set.samplerate,log2bins,useCol,1./refspec.x);
+for dataset = [lab02 lab08 lab12 lab16]
+    LJ_plotSpec(dataset.out,dataset.samplerate,log2bins,useCol,1./refspec.x);
     hold all
     
 end
@@ -109,7 +111,7 @@ hold off
 title('ratio')
 xlabel('frequency (Hz)')
 axis tight
-legend('02','08','12','16')
+legend('02','08','12','16','Location','northwest')
 grid on
 
 export_fig(['compareTimes' labtitle '-' useFilename '.pdf'],'-painters')
@@ -122,14 +124,15 @@ useCal = magcal;
 useFilename = 'mag';
 
 figure('Position',[1,1,600,800])
+set(gcf,'Color','white')
 
 subplot(2,1,1)
 avgmag = [];
 for iset = {lab02 lab08 lab12 lab16 pde}
-    set=iset{1};
-    set.magmag = sqrt(set.out(:,1).^2+set.out(:,2).^2+set.out(:,3).^2);
-    avgmag = [avgmag;useCal*mean(set.magmag)]; %#ok<AGROW>
-    LJ_plotSpec(set.magmag,set.samplerate,log2bins,1,useCal);
+    dataset=iset{1};
+    dataset.magmag = sqrt(dataset.out(:,1).^2+dataset.out(:,2).^2+dataset.out(:,3).^2);
+    avgmag = [avgmag;useCal*mean(dataset.magmag)]; %#ok<AGROW>
+    LJ_plotSpec(dataset.magmag,dataset.samplerate,log2bins,1,useCal);
     hold all
     
 end
@@ -146,19 +149,19 @@ ylabel(useYlabel)
 %legend('Original','Closed Pot Cover','In Foam Housing','In Box','Fans Off')
 legend(['02AM, DC=' num2str(round(avgmag(1))) 'uT'],['08AM DC=' num2str(round(avgmag(2))) 'uT'],...
     ['12PM DC=' num2str(round(avgmag(3))) 'uT'],['04PM DC=' num2str(round(avgmag(4))) 'uT'],...
-    ['pde 7PM DC=' num2str(round(avgmag(5))) 'uT'],'ADC noise')
+    ['pde 7PM DC=' num2str(round(avgmag(5))) 'uT'],'ADC noise','Location','northwest')
 grid on
 
 % plot ratios
 
 % calculate reference spectrum
-pdemagmag = sqrt(set.out(:,1).^2+set.out(:,2).^2+set.out(:,3).^2);
+pdemagmag = sqrt(dataset.out(:,1).^2+dataset.out(:,2).^2+dataset.out(:,3).^2);
 refspec = asd(pdemagmag,pde.samplerate,pde.samplerate/2^log2bins);
 
 subplot(2,1,2)
-for set = [lab02 lab08 lab12 lab16]
-    set.magmag = sqrt(set.out(:,1).^2+set.out(:,2).^2+set.out(:,3).^2);
-    LJ_plotSpec(set.magmag,set.samplerate,log2bins,1,1./refspec.x);
+for dataset = [lab02 lab08 lab12 lab16]
+    dataset.magmag = sqrt(dataset.out(:,1).^2+dataset.out(:,2).^2+dataset.out(:,3).^2);
+    LJ_plotSpec(dataset.magmag,dataset.samplerate,log2bins,1,1./refspec.x);
     hold all
     
 end
@@ -166,7 +169,7 @@ hold off
 title('ratio')
 xlabel('frequency (Hz)')
 axis tight
-legend('02','08','12','16')
+legend('02','08','12','16','Location','northwest')
 grid on
 
 export_fig(['compareTimes' labtitle '-' useFilename '.pdf'],'-painters')
