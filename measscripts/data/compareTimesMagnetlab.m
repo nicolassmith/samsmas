@@ -58,7 +58,7 @@ grid on
 % plot ratios
 
 % calculate reference spectrum
-refspec = asd(pde.out(:,6),pde.samplerate,pde.samplerate/2^log2bins);
+refspec = asd(pde.out(:,useCol),pde.samplerate,pde.samplerate/2^log2bins);
 
 subplot(2,1,2)
 for set = [lab02 lab12 lab16]
@@ -108,7 +108,7 @@ grid on
 % plot ratios
 
 % calculate reference spectrum
-refspec = asd(pde.out(:,6),pde.samplerate,pde.samplerate/2^log2bins);
+refspec = asd(pde.out(:,useCol),pde.samplerate,pde.samplerate/2^log2bins);
 
 subplot(2,1,2)
 for set = [lab02 lab12 lab16]
