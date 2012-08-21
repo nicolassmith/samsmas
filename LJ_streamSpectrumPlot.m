@@ -28,7 +28,7 @@ f = linspace(0,samplerate/2,numpoints);
 
 plothandle = loglog(f,NaN(numchans,numpoints));
 ylabel('V/\surdHz')
-xlabel('time (s)')
+xlabel('Frequency (Hz)')
 legend(leg);
 plotcallback(); %#ok<NOEFF>
 
